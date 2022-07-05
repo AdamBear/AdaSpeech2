@@ -58,14 +58,12 @@ class TTSDataset(Dataset):
 
     def __getitem__(self, index):
         id = self._metadata[index][4].split(".")[0]
-        # x_ = self._metadata[index][3].split()
+        x_ = self._metadata[index][3].split()
 
-        x = self.preprocess_pinyin(self._metadata[index][3])
-
-        # if self.use_phonemes:
-        #     x = phonemes_to_sequence(x_)
-        # else:
-        #     x = text_to_sequence(x_, self.tts_cleaner_names, self.eos)
+        if self.use_phonemes:
+            x = phonemes_to_sequence(x_)
+        else:
+            x = text_to_sequence(x_, self.tts_cleaner_names, self.eos)
 
         mel = np.load(f"{self.path}mels/{id}.npy")
         durations = str_to_int_list(self._metadata[index][2])
