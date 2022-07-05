@@ -1,5 +1,4 @@
 data:
-  #data_dir: 'data/'
   data_dir: '/data/training_data'
   wav_dir: '/data/training_wav'
   # Compute statistics
