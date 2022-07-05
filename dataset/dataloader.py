@@ -58,9 +58,9 @@ class TTSDataset(Dataset):
 
     def __getitem__(self, index):
         id = self._metadata[index][4].split(".")[0]
-        x_ = self._metadata[index][3].split()
+        # x_ = self._metadata[index][3].split()
 
-        x = self.preprocess_pinyin(x_)
+        x = self.preprocess_pinyin(self._metadata[index][3])
 
         # if self.use_phonemes:
         #     x = phonemes_to_sequence(x_)
