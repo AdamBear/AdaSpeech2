@@ -2,15 +2,15 @@ data:
   data_dir: '/data/training_data'
   wav_dir: '/data/training_wav'
   # Compute statistics
-  e_mean: 21.578571319580078
-  e_std: 18.916799545288086
-  e_min: 0.01786651276051998
-  e_max: 130.5338592529297
+  e_mean: 46.3104248046875
+  e_std: 44.06468200683594
+  e_min: 6.505912697463145e-09
+  e_max: 309.470703125
 
   f0_mean: 206.5135564772342
   f0_std:  53.633228905750336
-  p_min: 71.0
-  p_max: 676.2260946528305 # 799.8901977539062
+  p_min: 71.00206212567414
+  p_max: 798.9604976004786 # 799.8901977539062
   train_filelist: "/data/train_filelist.txt"
   valid_filelist: "/data/val_filelist.txt"
   tts_cleaner_names: []
