@@ -6,7 +6,18 @@ from dataset.texts import phonemes_to_sequence
 import numpy as np
 from dataset.texts import text_to_sequence
 from utils.util import pad_list, str_to_int_list, remove_outlier
+import re
 
+def read_lexicon(lex_path):
+    lexicon = {}
+    with open(lex_path) as f:
+        for line in f:
+            temp = re.split(r"\s+", line.strip("\n"))
+            word = temp[0]
+            phones = temp[1:]
+            if word.lower() not in lexicon:
+                lexicon[word.lower()] = phones
+    return lexicon
 
 def get_tts_dataset(path, batch_size, hp, valid=False):
 
@@ -43,14 +54,19 @@ class TTSDataset(Dataset):
         self.use_phonemes = use_phonemes
         self.tts_cleaner_names = tts_cleaner_names
         self.eos = eos
+        self.lexicon = read_lexicon("pinyin-lexicon-r.txt")
 
     def __getitem__(self, index):
         id = self._metadata[index][4].split(".")[0]
         x_ = self._metadata[index][3].split()
-        if self.use_phonemes:
-            x = phonemes_to_sequence(x_)
-        else:
-            x = text_to_sequence(x_, self.tts_cleaner_names, self.eos)
+
+        x = self.preprocess_pinyin(x_)
+
+        # if self.use_phonemes:
+        #     x = phonemes_to_sequence(x_)
+        # else:
+        #     x = text_to_sequence(x_, self.tts_cleaner_names, self.eos)
+
         mel = np.load(f"{self.path}mels/{id}.npy")
         durations = str_to_int_list(self._metadata[index][2])
         e = remove_outlier(
@@ -90,6 +106,22 @@ class TTSDataset(Dataset):
         x[zero_idxs] = 0.0
         return x
 
+    def preprocess_pinyin(self, text):
+
+        phones = []
+        pinyins = text.split(' ')
+        for p in pinyins:
+            if p in self.lexicon:
+                phones += self.lexicon[p]
+            else:
+                phones.append("sp")
+
+        phones = "{" + " ".join(phones) + "}"
+        sequence = np.array(
+            text_to_sequence(phones, [])
+        )
+
+        return np.array(sequence)
 
 def pad1d(x, max_len):
     return np.pad(x, (0, max_len - len(x)), mode="constant")
