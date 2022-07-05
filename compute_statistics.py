@@ -7,7 +7,7 @@ from utils.hparams import HParam
 
 if __name__ == "__main__":
 
-    hp = HParam("./config/default.yaml")
+    hp = HParam("./configs/default.yaml")
 
     min_e = []
     min_p = []
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     pitch_files = get_files(pitch_path, extension=".npy")
     mel_files = get_files(mel_path, extension=".npy")
 
-    assert len(energy_files) == len(pitch_files) == len(mel_files)
+    assert len(energy_files) == len(pitch_files) == len(mel_files), "energy, pitch, mel files:{}, {}, {}".format(len(energy_files), len(pitch_files), len(mel_files))
 
     energy_vecs = []
     for f in tqdm(energy_files):

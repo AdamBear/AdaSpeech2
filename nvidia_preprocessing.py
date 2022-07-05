@@ -33,7 +33,6 @@ def preprocess(data_path, hp, file):
         mel_fmax=hp.audio.fmax,
     )
 
-
     mel_path = os.path.join(hp.data.data_dir, "mels")
     energy_path = os.path.join(hp.data.data_dir, "energy")
     pitch_path = os.path.join(hp.data.data_dir, "pitch")
