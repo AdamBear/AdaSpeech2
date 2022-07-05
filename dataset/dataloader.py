@@ -118,7 +118,7 @@ class TTSDataset(Dataset):
 
         phones = "{" + " ".join(phones) + "}"
         sequence = np.array(
-            text_to_sequence(phones, [])
+            text_to_sequence(phones, [], self.eos)
         )
 
         return np.array(sequence)
