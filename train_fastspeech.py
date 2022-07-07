@@ -97,6 +97,8 @@ def train(args, hp, hp_str, logger, vocoder):
             if hp.model.phoneme_acoustic_embed and global_step >= hp.model.predictor_start_step:
                 phn_level_predictor = True
             x, input_length, y, _, out_length, _, dur, e, p, avg_mel = data
+            logging.debug("global step {}, input_length is {}".format(global_step, len(input_length)))
+
             # x : [batch , num_char], input_length : [batch], y : [batch, T_in, num_mel]
             #             # stop_token : [batch, T_in], out_length : [batch]
 
