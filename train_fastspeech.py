@@ -428,7 +428,7 @@ def main(cmd_args):
     # logging info
     os.makedirs(hp.train.log_dir, exist_ok=True)
     logging.basicConfig(
-        level=logging.INFO,
+        level=logging.DEBUG,
         format="%(asctime)s - %(levelname)s - %(message)s",
         handlers=[
             logging.FileHandler(
