@@ -29,7 +29,7 @@ def get_tts_dataset(path, batch_size, hp, valid=False):
     else:
         file_ = hp.data.train_filelist
         pin_mem = False
-        num_workers = 1
+        num_workers = 0
         shuffle = True
     train_dataset = TTSDataset(
         path, file_, hp.train.use_phonemes, hp.data.tts_cleaner_names, hp.train.eos
